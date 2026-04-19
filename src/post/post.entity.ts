@@ -1,45 +1,26 @@
-import { Post } from '../post/post.entity';
+import { Ministry } from '../ministry/ministry.entity';
 import {
   BeforeInsert,
   Column,
   CreateDateColumn,
   Entity,
-  OneToMany,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
-export class Ministry {
+export class Post {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  nameKh: string;
+  content: string;
 
-  @Column()
-  nameEn: string;
-
-  @Column()
-  badge: string;
-
-  @Column()
-  address: string;
-
-  @Column({ nullable: true })
-  telephone: string;
-
-  @Column({ nullable: true })
-  email: string;
-
-  @Column()
-  websiteUrl: string;
-
-  @Column()
-  facebookPageUrl: string;
-
-  @OneToMany(() => Post, (obj) => obj.ministry)
-  posts: Post[];
+  @ManyToOne(() => Ministry, (obj) => obj.posts)
+  @JoinColumn()
+  ministry: Ministry;
 
   @Column()
   isDeleted: boolean;

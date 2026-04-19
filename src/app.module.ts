@@ -4,9 +4,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AppDatabaseSourceOption } from './infrastructure/database.config';
 import { MinistryModule } from './ministry/ministry.module';
+import { PostModule } from './post/post.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot(AppDatabaseSourceOption), MinistryModule],
+  imports: [
+    TypeOrmModule.forRoot(AppDatabaseSourceOption),
+    MinistryModule,
+    PostModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
