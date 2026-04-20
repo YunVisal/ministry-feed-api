@@ -7,6 +7,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { StringValue } from 'ms';
 import { CurrentUserInterceptor } from './interceptors/current-user.interceptor';
 import { APP_INTERCEPTOR } from '@nestjs/core';
+import { AuthGuard } from './guards/auth.guard';
 
 @Module({
   imports: [
@@ -36,5 +37,6 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
     },
   ],
   controllers: [AuthController],
+  exports: [JwtModule],
 })
 export class AuthModule {}
