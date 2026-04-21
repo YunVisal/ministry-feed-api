@@ -1,17 +1,17 @@
+import { PostResource } from '../post-resource/post-resource.entity';
+import { Audit } from '../entities/audit.entity';
 import { Ministry } from '../ministry/ministry.entity';
 import {
-  BeforeInsert,
   Column,
-  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
+  OneToMany,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 @Entity()
-export class Post {
+export class Post extends Audit {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,23 +22,6 @@ export class Post {
   @JoinColumn()
   ministry: Ministry;
 
-  @Column()
-  isDeleted: boolean;
-
-  @Column()
-  createdUser: string;
-
-  @CreateDateColumn()
-  createdDate: Date;
-
-  @Column()
-  modifiedUser: string;
-
-  @UpdateDateColumn()
-  modifiedDate: Date;
-
-  @BeforeInsert()
-  beforeInsert() {
-    this.isDeleted = false;
-  }
+  @OneToMany(() => PostResource, (obj) => obj.post)
+  postResources: PostResource[];
 }

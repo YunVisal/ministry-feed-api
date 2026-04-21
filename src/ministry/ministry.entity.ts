@@ -1,16 +1,9 @@
+import { Audit } from '../entities/audit.entity';
 import { Post } from '../post/post.entity';
-import {
-  BeforeInsert,
-  Column,
-  CreateDateColumn,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-  UpdateDateColumn,
-} from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
-export class Ministry {
+export class Ministry extends Audit {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -40,24 +33,4 @@ export class Ministry {
 
   @OneToMany(() => Post, (obj) => obj.ministry)
   posts: Post[];
-
-  @Column()
-  isDeleted: boolean;
-
-  @Column()
-  createdUser: string;
-
-  @CreateDateColumn()
-  createdDate: Date;
-
-  @Column()
-  modifiedUser: string;
-
-  @UpdateDateColumn()
-  modifiedDate: Date;
-
-  @BeforeInsert()
-  beforeInsert() {
-    this.isDeleted = false;
-  }
 }
